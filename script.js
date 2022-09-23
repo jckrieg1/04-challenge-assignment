@@ -1,113 +1,196 @@
 
-
+// Global Variables:
 var currentScore = 0;
-var secondsRemaining = 10;
+var secondsRemaining = 3;
+var currentQuestionNum = 0;
 var timeEl = document.querySelector("#time");
+var questionIndex = 0;
+var section = document.createElement("section");
+var questionH2 = document.createElement("h2");
+var answerList = document.createElement("ul");
+var answer1 = document.createElement("li");
+var answer2 = document.createElement("li");
+var answer3 = document.createElement("li");
+var answer4 = document.createElement("li");
+var button1 = document.createElement("button");
+var button2 = document.createElement("button");
+var button3 = document.createElement("button");
+var button4 = document.createElement("button");
+var form = document.createElement("form");
+var gameOver = document.createElement("h1");
+// var intialsForm = document.createElement("input");
+// var inputTitle = document.createElement("h2");
 
+
+
+// Setting style attributes for the answer buttons:
+button1.setAttribute("style", "margin:10px");
+button2.setAttribute("style", "margin:10px");
+button3.setAttribute("style", "margin:10px");
+button4.setAttribute("style", "margin:10px");
+// inputTitle.textContent = "Enter your initials here:"
+// intialsForm.setAttribute("submit", "submit");
+gameOver.textContent = "GAME OVER!";
+
+
+
+
+
+
+// Array containing question objects:
 var questions = [
     {
-        question: "first question",
+        question: "What type of data can be stored in an array?",
         answers: [
-            "Answer 1",
-            "Answer 2",
-            "Answer 3",
-            "Answer 4"
-        ]
+            "Strings",
+            "Objects",
+            "Numbers",
+            "All of the above"
+        ],
+        correct: "All of the above"
+        
     },
 
     {
-        question: "second question",
+        question: "Name an array method.",
         answers: [
-            "Answer 1",
-            "Answer 2",
-            "Answer 3",
-            "Answer 4"
-        ]
-    }
+            "flatten",
+            "push",
+            "highlight",
+            "getElementById"
+        ],
+        correct: "push"
+    },
+    {
+        question: "What is my cat's name?",
+        answers: [
+            "Princess",
+            "Asia",
+            "Molly",
+            "Chyna"
+        ],
+        correct: "Chyna"
+        
+    },
+    {
+        question: "What is the capitol of Minnesota?",
+        answers: [
+            "Minneapolis",
+            "St. Paul",
+            "Rochester",
+            "Duluth"
+        ],
+        correct: "St. Paul"
+        
+    },
+    {
+        question: "Which coffee roast has the most caffeine?",
+        answers: [
+            "Light Roast",
+            "Medium Roast",
+            "Dark Roast",
+            "They all have about the same"
+        ],
+        correct: "Light Roast"
+        
+    },
+    {
+        question: "What is a baby kangaroo called?",
+        answers: [
+            "Freddy",
+            "Danny",
+            "Joey",
+            "Suzie"
+        ],
+        correct: "Joey"
+        
+    },
+    {
+        question: "Who is Kourtney Kardahsian currently dating?",
+        answers: [
+            "Pete Davidson",
+            "Kanye West",
+            "Travis Scott",
+            "Travis Barker"
+        ],
+        correct: "Travis Barker"
+        
+    },
+    {
+        question: "What is Paris Hilton's missing chihuhua's name? :(",
+        answers: [
+            "Tinkerbell",
+            "Diamond Baby",
+            "Gucci",
+            "Dutchess"
+        ],
+        correct: "Diamond Baby"
+        
+    },
+    {
+        question: "How many eggs in a dozen?",
+        answers: [
+            "12",
+            "24",
+            "36",
+            "1200"
+        ],
+        correct: "12"
+        
+    },
+    {
+        question: "Who is a reptillian?",
+        answers: [
+            "Queen Elizabeth",
+            "Mark Zuckerberg",
+            "Justin Bieber",
+            "All of the above"
+        ],
+        correct: "All of the above"
+        
+    },
 ]
-console.log(questions[0].question);
 
+
+
+
+// Timer function: 
 function setTime() {
     // Sets interval in variable
     var timerInterval = setInterval(function() {
-      secondsRemaining --;
       timeEl.textContent = "Seconds Left: " + secondsRemaining;
-      if(secondsRemaining === 0) {
+      secondsRemaining --;
+      if(secondsRemaining === -1) {
         // Stops execution of action at set interval
         clearInterval(timerInterval);
+        section.remove();
+        document.body.appendChild(gameOver);
+        // document.body.appendChild(form);
+        // form.appendChild(inputTitle);
+        // form.appendChild(intialsForm); 
       }
   
     }, 1000);
 }
 
-// help--not working??
-var startButton = document.getElementById("start");
-startButton.addEventListener("click", setTime());
+// Start button; starts the timer and shows the first question:
+var startButton = document.querySelector("#start");
+startButton.addEventListener("click", function() {
+    setTime();
+    showAQuestion(currentQuestionNum);
+});
 
 
-function showAQuestion(){
-    // Figure out which item to get from the array whenever this function is called
-    // button1.textContent=questions[0]
+
+function showAQuestion(i){
+ // Sets the question and answer text.
     var currentQuestionObj = questions[i]
-    var section = document.createElement("section");
-    var questionH2 = document.createElement("h2");
-    var answerList = document.createElement("ul");
-}
-
-// When the user clicks start, what needs to happen?
-    // Timer starts
-    // Display a question
-        // showQuestion()
-    
-// console.log(questions[0]);
-
-
-
-for(var i = 0; i < questions.length; i ++){
-    var curQuestionsObj = questions[i]
-    var section = document.createElement("section");
-    // create an h2 tag, give it the text of the question 
-    // create a ul tag
-    // for each answer, create a li tag 
-
-    // add all this stuff to the DOM
-}
-
-/* 
-<section>
-            <h2>Question 1: </h2>
-            <ul>
-                <li>Answer 1</li>
-                <li>Answer 2</li>
-                <li>Answer 3</li>
-                <li>Answer 4</li>
-            </ul>
-        </section> 
-*/
-
-// event listeners
-    // clicking the start button 
-    // when they choose the answer 
-
-    // creates all of the page elements 
-    var currentQuestionObj = questions[i]
-    var section = document.createElement("section");
-    var questionH2 = document.createElement("h2");
-    var answerList = document.createElement("ul");
-    var answer1 = document.createElement("li");
-    var answer2 = document.createElement("li");
-    var answer3 = document.createElement("li");
-    var answer4 = document.createElement("li");
-    var button1 = document.createElement("button");
-    var button2 = document.createElement("button");
-    var button3 = document.createElement("button");
-    var button4 = document.createElement("button");
-
-    button1.textContent=questions[0].question;
-
-
-    questionH2.textContent="this is question 1"
-    console.log(questionH2);
+    questionH2.textContent = currentQuestionObj.question;
+    button1.textContent = currentQuestionObj.answers[0];
+    button2.textContent = currentQuestionObj.answers[1];
+    button3.textContent = currentQuestionObj.answers[2];
+    button4.textContent = currentQuestionObj.answers[3];
+// Puts questions and answers on the page.
     document.body.appendChild(section); 
     section.appendChild(questionH2);
     section.appendChild(answerList);
@@ -119,12 +202,91 @@ for(var i = 0; i < questions.length; i ++){
     answerList.appendChild(answer2);
     answerList.appendChild(answer3);
     answerList.appendChild(answer4);
+}
 
-// button1.textContent = "dfgdfgdfgdf";
-button1.setAttribute("style", "margin:10px");
-button2.textContent = "dfgdfgdfgdf";
-button2.setAttribute("style", "margin:10px");
-button3.textContent = "dfgdfgdfgdf";
-button3.setAttribute("style", "margin:10px");
-button4.textContent = "dfgdfgdfgdf";
-button4.setAttribute("style", "margin:10px");
+// Button 1 Response:
+button1.addEventListener("click", function() {
+    var selectedAnswer = questions[currentQuestionNum].answers[0];
+    var correctAnswer = questions[currentQuestionNum].correct;
+    if(selectedAnswer === correctAnswer) {
+        alert("You are correct!");
+        currentScore ++;
+    }
+    else {
+        alert("You are incorrect :(");
+        secondsRemaining = secondsRemaining -5;
+    }
+    currentQuestionNum ++;
+    section.remove();
+    showAQuestion(currentQuestionNum);
+    var score = document.querySelector("#score");
+    score.textContent = currentScore;
+    console.log(currentScore);
+    }
+)
+
+// Button 2 Response:
+button2.addEventListener("click", function() {
+    var selectedAnswer = questions[currentQuestionNum].answers[1];
+    var correctAnswer = questions[currentQuestionNum].correct;
+    if(selectedAnswer === correctAnswer) {
+        alert("You are correct!");
+        currentScore ++;
+    }
+    else {
+        alert("You are incorrect :(");
+        secondsRemaining = secondsRemaining -5;
+    }
+    currentQuestionNum ++;
+    section.remove();
+    showAQuestion(currentQuestionNum);
+    var score = document.querySelector("#score");
+    score.textContent = currentScore;
+    console.log(currentScore);
+    }
+)
+
+// Button 3 Response:
+button3.addEventListener("click", function() {
+    var selectedAnswer = questions[currentQuestionNum].answers[2];
+    var correctAnswer = questions[currentQuestionNum].correct;
+    if(selectedAnswer === correctAnswer) {
+        alert("You are correct!");
+        currentScore ++;
+    }
+    else {
+        alert("You are incorrect :(");
+        secondsRemaining = secondsRemaining -5;
+    }
+    currentQuestionNum ++;
+    section.remove();
+    showAQuestion(currentQuestionNum);
+    var score = document.querySelector("#score");
+    score.textContent = currentScore;
+    console.log(currentScore);
+    }
+)
+
+// Button 4 Response:
+button4.addEventListener("click", function() {
+    var selectedAnswer = questions[currentQuestionNum].answers[3];
+    var correctAnswer = questions[currentQuestionNum].correct;
+    if(selectedAnswer === correctAnswer) {
+        currentScore ++;
+        alert("You are correct!");
+    }
+    else {
+        alert("You are incorrect :(");
+        secondsRemaining = secondsRemaining -5;
+    }
+    currentQuestionNum ++;
+    section.remove();
+    showAQuestion(currentQuestionNum);
+    var score = document.querySelector("#score");
+    score.textContent = currentScore;
+    console.log(currentScore);
+    }
+);
+
+// localStorage.setItem('currentScore');
+// var localScore = localStorage.getItem('currentScore');
