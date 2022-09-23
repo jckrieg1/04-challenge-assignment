@@ -1,7 +1,7 @@
 
 // Global Variables:
 var currentScore = 0;
-var secondsRemaining = 3;
+var secondsRemaining = 30;
 var currentQuestionNum = 0;
 var timeEl = document.querySelector("#time");
 var questionIndex = 0;
@@ -18,8 +18,9 @@ var button3 = document.createElement("button");
 var button4 = document.createElement("button");
 var form = document.createElement("form");
 var gameOver = document.createElement("h1");
-// var intialsForm = document.createElement("input");
-// var inputTitle = document.createElement("h2");
+var intialsForm = document.createElement("input");
+var inputTitle = document.createElement("h2");
+var formButton = document.createElement("button");
 
 
 
@@ -28,10 +29,10 @@ button1.setAttribute("style", "margin:10px");
 button2.setAttribute("style", "margin:10px");
 button3.setAttribute("style", "margin:10px");
 button4.setAttribute("style", "margin:10px");
-// inputTitle.textContent = "Enter your initials here:"
-// intialsForm.setAttribute("submit", "submit");
+inputTitle.textContent = "Enter your initials here:"
+intialsForm.setAttribute("type", "submit");
 gameOver.textContent = "GAME OVER!";
-
+formButton.textContent = "Submit";
 
 
 
@@ -151,7 +152,13 @@ var questions = [
     },
 ]
 
-
+function displayForm() {
+    document.body.appendChild(gameOver);
+    document.body.appendChild(form);
+    form.appendChild(inputTitle);
+    form.appendChild(intialsForm);
+    form.appendChild(formButton);
+}
 
 
 // Timer function: 
@@ -183,110 +190,143 @@ startButton.addEventListener("click", function() {
 
 
 function showAQuestion(i){
- // Sets the question and answer text.
-    var currentQuestionObj = questions[i]
-    questionH2.textContent = currentQuestionObj.question;
-    button1.textContent = currentQuestionObj.answers[0];
-    button2.textContent = currentQuestionObj.answers[1];
-    button3.textContent = currentQuestionObj.answers[2];
-    button4.textContent = currentQuestionObj.answers[3];
 // Puts questions and answers on the page.
+    var currentQuestion = questions[currentQuestionNum];
+    questionH2.textContent = currentQuestion.question;
     document.body.appendChild(section); 
     section.appendChild(questionH2);
     section.appendChild(answerList);
-    answer1.appendChild(button1);
-    answer2.appendChild(button2);
-    answer3.appendChild(button3);
-    answer4.appendChild(button4);
-    answerList.appendChild(answer1);
-    answerList.appendChild(answer2);
-    answerList.appendChild(answer3);
-    answerList.appendChild(answer4);
+    var currentQuestion = questions[currentQuestionNum];
+for(i=0; i<currentQuestion.answers.length; i++) {
+    var button = document.createElement("button")
+    button.textContent = currentQuestion.answers[i]
+    var listEl = document.createElement("li")
+    listEl.appendChild(button)
+    answerList.appendChild(listEl)
+}
+answerList.addEventListener("click", function(event) {
+    var selectedAnswer = event.target.textContent 
+    var correctAnswer = currentQuestion.correct
+    if(selectedAnswer === correctAnswer) {
+        currentScore ++;
+        alert("You are correct!");
+    }
+    else {
+        alert("You are incorrect :(");
+        secondsRemaining = secondsRemaining -5;
+    }
+    currentQuestionNum ++;
+    section.remove();
+
+    if(currentQuestionNum<questions.length) {
+        showAQuestion(currentQuestionNum);
+    }
+    else {
+        displayForm()
+    };
+    var score = document.querySelector("#score");
+    score.textContent = currentScore;
+    console.log(currentScore);
+}) 
 }
 
+
+
 // Button 1 Response:
-button1.addEventListener("click", function() {
-    var selectedAnswer = questions[currentQuestionNum].answers[0];
-    var correctAnswer = questions[currentQuestionNum].correct;
-    if(selectedAnswer === correctAnswer) {
-        alert("You are correct!");
-        currentScore ++;
-    }
-    else {
-        alert("You are incorrect :(");
-        secondsRemaining = secondsRemaining -5;
-    }
-    currentQuestionNum ++;
-    section.remove();
-    showAQuestion(currentQuestionNum);
-    var score = document.querySelector("#score");
-    score.textContent = currentScore;
-    console.log(currentScore);
-    }
-)
+// button1.addEventListener("click", function() {
+//     var selectedAnswer = questions[currentQuestionNum].answers[0];
+//     var correctAnswer = questions[currentQuestionNum].correct;
+//     if(selectedAnswer === correctAnswer) {
+//         alert("You are correct!");
+//         currentScore ++;
+//     }
+//     else {
+//         alert("You are incorrect :(");
+//         secondsRemaining = secondsRemaining -5;
+//     }
+//     currentQuestionNum ++;
+//     section.remove();
+//     showAQuestion(currentQuestionNum);
+//     var score = document.querySelector("#score");
+//     score.textContent = currentScore;
+//     console.log(currentScore);
+//     }
+// )
 
-// Button 2 Response:
-button2.addEventListener("click", function() {
-    var selectedAnswer = questions[currentQuestionNum].answers[1];
-    var correctAnswer = questions[currentQuestionNum].correct;
-    if(selectedAnswer === correctAnswer) {
-        alert("You are correct!");
-        currentScore ++;
-    }
-    else {
-        alert("You are incorrect :(");
-        secondsRemaining = secondsRemaining -5;
-    }
-    currentQuestionNum ++;
-    section.remove();
-    showAQuestion(currentQuestionNum);
-    var score = document.querySelector("#score");
-    score.textContent = currentScore;
-    console.log(currentScore);
-    }
-)
+// // Button 2 Response:
+// button2.addEventListener("click", function() {
+//     var selectedAnswer = questions[currentQuestionNum].answers[1];
+//     var correctAnswer = questions[currentQuestionNum].correct;
+//     if(selectedAnswer === correctAnswer) {
+//         alert("You are correct!");
+//         currentScore ++;
+//     }
+//     else {
+//         alert("You are incorrect :(");
+//         secondsRemaining = secondsRemaining -5;
+//     }
+//     currentQuestionNum ++;
+//     section.remove();
+//     showAQuestion(currentQuestionNum);
+//     var score = document.querySelector("#score");
+//     score.textContent = currentScore;
+//     console.log(currentScore);
+//     }
+// )
 
-// Button 3 Response:
-button3.addEventListener("click", function() {
-    var selectedAnswer = questions[currentQuestionNum].answers[2];
-    var correctAnswer = questions[currentQuestionNum].correct;
-    if(selectedAnswer === correctAnswer) {
-        alert("You are correct!");
-        currentScore ++;
-    }
-    else {
-        alert("You are incorrect :(");
-        secondsRemaining = secondsRemaining -5;
-    }
-    currentQuestionNum ++;
-    section.remove();
-    showAQuestion(currentQuestionNum);
-    var score = document.querySelector("#score");
-    score.textContent = currentScore;
-    console.log(currentScore);
-    }
-)
+// // Button 3 Response:
+// button3.addEventListener("click", function() {
+//     var selectedAnswer = questions[currentQuestionNum].answers[2];
+//     var correctAnswer = questions[currentQuestionNum].correct;
+//     if(selectedAnswer === correctAnswer) {
+//         alert("You are correct!");
+//         currentScore ++;
+//     }
+//     else {
+//         alert("You are incorrect :(");
+//         secondsRemaining = secondsRemaining -5;
+//     }
+//     currentQuestionNum ++;
+//     section.remove();
+//     showAQuestion(currentQuestionNum);
+//     var score = document.querySelector("#score");
+//     score.textContent = currentScore;
+//     console.log(currentScore);
+//     }
+// )
 
-// Button 4 Response:
-button4.addEventListener("click", function() {
-    var selectedAnswer = questions[currentQuestionNum].answers[3];
-    var correctAnswer = questions[currentQuestionNum].correct;
-    if(selectedAnswer === correctAnswer) {
-        currentScore ++;
-        alert("You are correct!");
-    }
-    else {
-        alert("You are incorrect :(");
-        secondsRemaining = secondsRemaining -5;
-    }
-    currentQuestionNum ++;
-    section.remove();
-    showAQuestion(currentQuestionNum);
-    var score = document.querySelector("#score");
-    score.textContent = currentScore;
-    console.log(currentScore);
-    }
-);
+// // Button 4 Response:
+// var currentQuestion = questions[currentQuestionNum];
+// for(i=0; i<currentQuestion.answers; i++) {
+//     var button = document.createElement("button")
+//     button.textContent = currentQuestion.answers[i]
+
+// }
+// button.addEventListener("click", function() {
+//     var selectedAnswer = questions[currentQuestionNum].answers[i];
+//     var correctAnswer = questions[currentQuestionNum].correct;
+//     if(selectedAnswer === correctAnswer) {
+//         currentScore ++;
+//         alert("You are correct!");
+//     }
+//     else {
+//         alert("You are incorrect :(");
+//         secondsRemaining = secondsRemaining -5;
+//     }
+//     currentQuestionNum ++;
+//     section.remove();
+
+//     if(currentQuestionNum<questions.length) {
+//         showAQuestion(currentQuestionNum);
+//     }
+//     else {
+//         displayForm()
+//     };
+//     var score = document.querySelector("#score");
+//     score.textContent = currentScore;
+//     console.log(currentScore);
+//     }
+// );
 
 // localStorage.setItem('currentScore');
 // var localScore = localStorage.getItem('currentScore');
